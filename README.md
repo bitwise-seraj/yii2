@@ -58,3 +58,100 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+
+
+#### Setup
+
+- [Install](http://getcomposer.org/) composer
+- Install yii2 using composer
+
+```
+composer create-project --prefer-dist yiisoft/yii2-app-advanced yii-application
+```
+
+- Get into project root folder
+- Initialise the project
+
+```
+php ./init
+```
+
+- Create Database
+- Setup the db config: <b>common/config/main-local.ph</b>
+- Apply migration
+
+```
+php yii migrate
+```
+
+- Change web server roots
+```
+<VirtualHost *:80>
+    ServerName frontend.test
+    DocumentRoot "/path/to/yii-application/frontend/web/"
+
+    <Directory "/path/to/yii-application/frontend/web/">
+        # use mod_rewrite for pretty URL support
+        RewriteEngine on
+        # If a directory or a file exists, use the request directly
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        # Otherwise forward the request to index.php
+        RewriteRule . index.php
+
+        # use index.php as index file
+        DirectoryIndex index.php
+
+        # ...other settings...
+        # Apache 2.4
+        Require all granted
+
+        ## Apache 2.2
+        # Order allow,deny
+        # Allow from all
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName backend.test
+    DocumentRoot "/path/to/yii-application/backend/web/"
+
+    <Directory "/path/to/yii-application/backend/web/">
+        # use mod_rewrite for pretty URL support
+        RewriteEngine on
+        # If a directory or a file exists, use the request directly
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        # Otherwise forward the request to index.php
+        RewriteRule . index.php
+
+        # use index.php as index file
+        DirectoryIndex index.php
+
+        # ...other settings...
+        # Apache 2.4
+        Require all granted
+
+        ## Apache 2.2
+        # Order allow,deny
+        # Allow from all
+    </Directory>
+</VirtualHost>
+```
+
+```
+localhost/frontend.test
+localhost/backend.test
+```
+
+- Directly point to domain
+
+```
+c:\Windows\System32\Drivers\etc\hosts
+/etc/hosts
+```
+-- Add
+```
+127.0.0.1   frontend.test
+127.0.0.1   backend.test
+```
