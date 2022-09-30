@@ -15,12 +15,29 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use app\models\Student;
 
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
+    public function actionStudent()
+   {
+       $model = new Student();
+       if ($model->load(Yii::$app->request->post()) && $model->save()) {
+           Yii::$app->session->setFlash('studentFormSubmitted');
+        //    return $this->render('student_form', [
+        //        'model' => $model,
+        //    ]);
+            return $this->goBack();
+       } else {
+           return $this->render('student_form', [
+               'model' => $model,
+           ]);
+       }
+   }
+
     /**
      * {@inheritdoc}
      */
