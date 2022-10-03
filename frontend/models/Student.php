@@ -71,10 +71,16 @@ class Student extends \yii\db\ActiveRecord
 
     public function upload($file, $imagename)
     {
-        $this->vImagePath = Yii::getAlias('@frontend') . '/web/uploads/images/' . md5(time()) . $imagename;
+        $this->vImagePath = '/web/uploads/images/' . md5(time()) . $imagename;
         // print_r($file);exit;
-        return $file->saveAs($this->vImagePath);
+        return $file->saveAs(Yii::getAlias('@frontend') . $this->vImagePath);
     }
     
-
+    static public function getStudents()
+    {
+        return Student::find()
+            ->orderBy('iStudent DESC')
+            ->limit(100)
+            ->all();
+    }
 }

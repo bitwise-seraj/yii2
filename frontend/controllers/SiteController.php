@@ -27,7 +27,8 @@ class SiteController extends Controller
     public function actionStudent()
    {
         $model = new Student();
-        // print_r(time());exit;
+
+        // print_r($model->getStudents());exit;
         if(!empty($_FILES)){
             $file = \yii\web\UploadedFile::getInstance($model, 'bProfile');
             // print_r($file->fullPath);exit;
@@ -39,19 +40,23 @@ class SiteController extends Controller
             // $content = fread($fp, filesize($file->tempName));
             // fclose($fp);
             // $model->bProfile = $content;
-
        }
        if ($model->load(Yii::$app->request->post()) && $model->save()) {
            Yii::$app->session->setFlash('studentFormSubmitted');
-        //    return $this->render('student_form', [
-        //        'model' => $model,
-        //    ]);
-            return $this->goBack();
+           return $this->render('student_form', [
+               'model' => $model,
+           ]);
+            // return $this->goBack();
        } else {
            return $this->render('student_form', [
                'model' => $model,
            ]);
        }
+   }
+
+   public function actionStudentlist(){
+        $model = new Student();
+        return $this->render('student_list', ['data' => $model->getStudents()]);
    }
 
     /**

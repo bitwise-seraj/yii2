@@ -10,9 +10,49 @@ $this->title = 'Student Form';
        <div class="panel panel-default">
            <div class="panel-heading">Message Sent</div>
            <div class="panel-body">
-               <!-- <p><b>Name:</b> <?=$model->vFirstName.' '.$model->vLastName?> </p>
-               <p><b>Email:</b> <?=$model->email?> </p>
-               <p><b>Message:</b> <?=$model->message?> </p> -->
+                <table class="table">
+                    <tr>
+                        <th class="row">First Name</th>
+                        <td><?=$model->vFirstName?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">Last Name</th>
+                        <td><?=$model->vLastName?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">Email</th>
+                        <td><?=$model->vEmail?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">DOB</th>
+                        <td><?=$model->dDOB?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">School</th>
+                        <td><?=$model->vSchool?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">Grade</th>
+                        <td><?=$model->vGrade?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">Country</th>
+                        <td><?=$model->vCountry?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">State</th>
+                        <td><?=$model->vState?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">City</th>
+                        <td><?=$model->vCity?></td>
+                    </tr>
+                    <tr>
+                        <th class="row">Profile Picture</th>
+                        <td><img src="<?=$model->vImagePath?>" /></td>
+                    </tr>
+                </table>
+                <?= print_r($model->vImagePath);?>
            </div>
        </div>
        <div class="alert alert-success">
