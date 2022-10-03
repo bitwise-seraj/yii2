@@ -17,6 +17,8 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use app\models\Student;
 
+use function PHPUnit\Framework\isEmpty;
+
 /**
  * Site controller
  */
@@ -24,7 +26,21 @@ class SiteController extends Controller
 {
     public function actionStudent()
    {
-       $model = new Student();
+        $model = new Student();
+        // print_r(time());exit;
+        if(!empty($_FILES)){
+            $file = \yii\web\UploadedFile::getInstance($model, 'bProfile');
+            // print_r($file->fullPath);exit;
+            if(!$model->upload($file, $file->fullPath)){
+                return $this->render('student_form', ['model', $model]);
+            }
+            // print_r($file);exit;
+            // $fp = fopen($file->tempName, 'r');
+            // $content = fread($fp, filesize($file->tempName));
+            // fclose($fp);
+            // $model->bProfile = $content;
+
+       }
        if ($model->load(Yii::$app->request->post()) && $model->save()) {
            Yii::$app->session->setFlash('studentFormSubmitted');
         //    return $this->render('student_form', [

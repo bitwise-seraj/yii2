@@ -24,7 +24,7 @@ $this->title = 'Student Form';
 <?php else: ?>
 
 <div class="row">
-<?php $form = ActiveForm::begin(['id' => 'student_registration']); ?>
+<?php $form = ActiveForm::begin(['id' => 'student_registration', 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <div class="row mb-4">
         <div class="col">
             <div class="form-outline">
@@ -153,7 +153,7 @@ $this->title = 'Student Form';
     </div>
     <div class="row-mb-4">
         <div class="form-group">
-        <?= $form->field($model, 'profile') ?>
+            <?= $form->field($model, 'bProfile')->input('file'); ?>
         </div>
     </div>
     <?= $form->field($model, 'eStatus')->hiddenInput(['value' => 'Active'])->label(false); ?>

@@ -37,11 +37,12 @@ class Student extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['vFirstName', 'vLastName', 'vEmail', 'vPassword', 'dDOB', 'vSchool', 'vGrade', 'vCountry', 'vState', 'vCity', 'eStatus'], 'required'],
+            [['vFirstName', 'vLastName', 'vEmail', 'vPassword', 'dDOB', 'vSchool', 'vGrade', 'vCountry', 'vState', 'vCity', 'vImagePath', 'eStatus'], 'required'],
             [['dDOB'], 'safe'],
             [['eStatus'], 'string'],
             [['vFirstName', 'vLastName', 'vEmail', 'vGrade', 'vCountry', 'vState', 'vCity'], 'string', 'max' => 64],
             [['vPassword', 'vSchool'], 'string', 'max' => 128],
+            // [['bProfile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
 
@@ -62,8 +63,18 @@ class Student extends \yii\db\ActiveRecord
             'vCountry' => 'Country',
             'vState' => 'State',
             'vCity' => 'City',
+            'bProfile' => 'Profile Picture',
+            'vImagePath' => 'Image Path',
             'eStatus' => 'Status',
         ];
     }
+
+    public function upload($file, $imagename)
+    {
+        $this->vImagePath = Yii::getAlias('@frontend') . '/web/uploads/images/' . md5(time()) . $imagename;
+        // print_r($file);exit;
+        return $file->saveAs($this->vImagePath);
+    }
+    
 
 }
