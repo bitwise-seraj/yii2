@@ -21,12 +21,6 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <!-- <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"> -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"> -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"> -->
-
-    <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script> -->
-    <!-- <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"></script> -->
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>

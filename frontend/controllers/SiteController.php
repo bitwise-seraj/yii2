@@ -28,10 +28,10 @@ class SiteController extends Controller
    {
         $model = new Student();
 
-        // print_r($model->getStudents());exit;
-        if(!empty($_FILES)){
+        // print_r($_POST);exit;
+        // print_r($model->validate() ? "true" : "false");exit;
+        if(!(empty($_FILES) && $model->validate())){
             $file = \yii\web\UploadedFile::getInstance($model, 'bProfile');
-            // print_r($file->fullPath);exit;
             if(!$model->upload($file, $file->fullPath)){
                 return $this->render('student_form', ['model', $model]);
             }
