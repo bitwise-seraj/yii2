@@ -38,7 +38,7 @@ class StudentController extends Controller
                 ],
             ]
         );
-    }//hello
+    }//hello world
 
     /**
      * Lists all Student models.
