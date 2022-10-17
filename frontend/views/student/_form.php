@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /** @var app\models\Student $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
+<?= $this->render('/site/nav')?>
 
 <div class="student-form">
 
@@ -128,8 +129,20 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
         <div class="row mb-4">
-            <div class="form-group">
-                <?= $form->field($model, 'bProfile')->input('file'); ?>
+            <div class="col">
+                <div class="form-group">
+                    <?= $form->field($model, 'bProfile')->input('file'); ?>
+                </div>
+            </div>
+            <div class="col">
+                <?php $items = array(
+                    'free' => 'Free',
+                    'paid' => 'Paid',
+                ); ?>
+                <?= $form->field($model, 'vToken')->dropDownList(
+                    $items,           // Flat array ('id'=>'label')
+                    ['prompt' => 'Select Plan']    // options
+                ); ?>
             </div>
         </div>
         <?= $form->field($model, 'eStatus')->hiddenInput(['value' => 'Active'])->label(false); ?>

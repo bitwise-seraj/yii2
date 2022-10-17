@@ -70,6 +70,7 @@ class Student extends \yii\db\ActiveRecord
             'vParentMobile' => 'Parent Mobile',
             'bProfile' => 'Profile Picture',
             'vImagePath' => 'Image Path',
+            'vToken' => 'Plan',
             'eStatus' => 'Status',
         ];
     }
@@ -77,6 +78,7 @@ class Student extends \yii\db\ActiveRecord
     public function upload()
     {
         $file = \yii\web\UploadedFile::getInstance($this, 'bProfile');
+        if(!isset($file->fullPath)) return;
         $imagename = $file->fullPath;
 
         $this->vImagePath = '/uploads/images/' . md5(time()) . $imagename;
@@ -90,5 +92,10 @@ class Student extends \yii\db\ActiveRecord
             ->orderBy('iStudent DESC')
             ->limit(100)
             ->all();
+    }
+
+    public static function verifyStudent($email, $password)
+    {
+        return Student::findOne(['vEmail' => $email, 'vPassword' => $password, 'eStatus' => "Active"]);
     }
 }

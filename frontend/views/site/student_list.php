@@ -5,6 +5,8 @@ $this->title = 'Student List';
 <?php
 // print_r($data[1]);exit;
 ?>
+<?= $this->render('nav')?>
+
 <div class="table-responsive">
     <div class="table-wrapper">
         <div class="table-title">

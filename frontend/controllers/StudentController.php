@@ -4,10 +4,13 @@ namespace frontend\controllers;
 
 use yii;
 use app\models\Student;
+use app\models\StudentLogin;
 use app\models\StudentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\helpers\Url;
 
 /**
  * StudentController implements the CRUD actions for Student model.
@@ -16,12 +19,13 @@ class StudentController extends Controller
 {
     public function beforeAction($action){
         if(Yii::$app->user->isGuest){
-            return $this->redirect(['site/login']);
+            if(Yii::$app->controller->action->id != 'login')
+                return $this->redirect(['site/login']);
         }
 
         return true;
     }
-
+    
     /**
      * @inheritDoc
      */
@@ -36,9 +40,20 @@ class StudentController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['login'],
+                    'rules' => [
+                        [
+                            'actions' => ['login'],
+                            'allow' => true,
+                            'roles' => ['?'],
+                        ],
+                    ],
+                ],
             ]
         );
-    }//hello world
+    }
 
     /**
      * Lists all Student models.
@@ -54,6 +69,34 @@ class StudentController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionLogin(){
+        if(!StudentLogin::isGuest()) return $this->actionUser();
+        
+        $model = new StudentLogin();
+
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            // echo "<pre>";
+            // print_r($session->get('student')['token']);exit;
+            // Yii::$app->session->setFlash('success', 'You are a ' . ($model->isPaid() ? 'Paid' : 'Free') . ' member.');
+            return $this->render('/student_front/index');
+        }
+
+        $model->password = '';
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+    public function actionUser(){
+        return $this->render('/student_front/index');
+    }
+
+    public function actionLogout(){
+        $model = new StudentLogin();
+        $model->logout();
+        return $this->redirect('login');
     }
 
     /**
@@ -107,13 +150,19 @@ class StudentController extends Controller
     {
         $model = $this->findModel($iStudent);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->upload() && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $this->changes($model) && $model->save()) {
             return $this->redirect(['view', 'iStudent' => $model->iStudent]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function changes($model){
+        $model->upload();
+
+        $model->vToken = md5($model->vEmail . $model->vToken);
     }
 
     /**

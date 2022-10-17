@@ -4,6 +4,8 @@
 
 $this->title = 'My Yii Application';
 ?>
+<?= $this->render('nav')?>
+
 <div class="site-index">
 
     <div class="body-content">
@@ -23,7 +25,8 @@ $this->title = 'My Yii Application';
                     <p>Elements with the disabled attribute aren’t interactive, meaning users cannot hover or click them to trigger a popover (or tooltip). As a workaround, you’ll want to trigger the popover from a wrapper <div> or <span> and override the pointer-events on the disabled element. For disabled popover triggers, you may also prefer data-trigger="hover" so that the popover appears as immediate visual feedback to your users as they may not expect to click on a disabled element.</p>
                 </div>
             </div>
-            <a href="./student" class="btn btn-primary" role="button" aria-disabled="true">Student Registration</a>
+            <a href="./student" class="btn btn-primary" role="button" aria-disabled="true">Student Page</a>
+            <a href="./student/login" class="btn btn-primary" role="button" aria-disabled="true">Student Login</a>
 
         </div>
 

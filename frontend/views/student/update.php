@@ -10,6 +10,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->iStudent, 'url' => ['view', 'iStudent' => $model->iStudent]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
+<?= $this->render('/site/nav')?>
+
 <div class="student-update">
 
     <h1><?= Html::encode($this->title) ?></h1>

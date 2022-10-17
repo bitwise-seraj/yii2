@@ -13,6 +13,8 @@ use yii\grid\GridView;
 $this->title = 'Students';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?= $this->render('/site/nav')?>
+
 <div class="student-index">
 
     <h1><?= Html::encode($this->title) ?></h1>

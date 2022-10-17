@@ -5,6 +5,8 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Student Form';
 ?>
+<?= $this->render('nav')?>
+
 
 <?php if (Yii::$app->session->hasFlash('studentFormSubmitted')) : ?>
     <div class="row">

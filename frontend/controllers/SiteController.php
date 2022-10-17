@@ -24,13 +24,17 @@ use function PHPUnit\Framework\isEmpty;
  */
 class SiteController extends Controller
 {
+    public function beforeAction($action){
+        // return $this->render('nav');
+        return true;
+    }
     public function actionStudent()
    {
         $model = new Student();
 
         // print_r($_POST);exit;
         // print_r($model->validate() ? "true" : "false");exit;
-        if(!(empty($_FILES) && $model->validate())){
+        if(!empty($_FILES) && $model->validate()){
             $file = \yii\web\UploadedFile::getInstance($model, 'bProfile');
             if(!$model->upload($file, $file->fullPath)){
                 return $this->render('student_form', ['model', $model]);

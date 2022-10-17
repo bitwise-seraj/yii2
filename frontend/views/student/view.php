@@ -11,6 +11,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Students', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+<?= $this->render('/site/nav')?>
+
 <div class="student-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -50,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => ['image', ['class' => 'col-md-6']],
             ],
             'vImagePath',
+            'vToken',
             'eStatus',
         ],
     ]) ?>
